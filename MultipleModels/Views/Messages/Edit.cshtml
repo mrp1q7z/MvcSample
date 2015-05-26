@@ -1,0 +1,71 @@
+﻿@model MultipleModels.Models.Message
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Message</h4>
+        <hr />
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Body, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Body)
+            </div>
+        </div>
+
+        @for (var i=0; i<Model.Recipients.Count; i++)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Recipients[i].ID, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => Model.Recipients[i].ID)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Recipients[i].PublicName, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => Model.Recipients[i].PublicName)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => Model.Recipients[i].Email, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => Model.Recipients[i].Email)
+                </div>
+            </div>
+        }
+
+        <div class="form-group">
+            <div class="col-md-2">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+@*
+<form action="~/Messages/Edit" method="post">
+    <!-- These two are trivial -->
+    <input type="text" name="message.Title" value="" />
+    <textarea name="message.Body"></textarea>
+    <!-- And here are recipients -->
+    <input type="text" name="message.Recipients[0].PublicName" value="John Doe" />
+    <input type="text" name="message.Recipients[0].Id" value="1" />
+    <input type="text" name="message.Recipients[1].PublicName" value="Jane Doe" />
+    <input type="text" name="message.Recipients[1].Id" value="2" />
+
+    <input type="submit" value="submit" />
+</form>
+*@
